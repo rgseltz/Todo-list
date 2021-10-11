@@ -16,28 +16,11 @@ for (child of children) {
 // }
 //could be explained clearer to me*
 
-
+//add a new task in todo list form and append to ordered list
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     console.log(e);
-    let newTask = document.createElement('li');
-    newTask.innerText = addTask.value;
-    addTask.value = '';
-    toDoList.appendChild(newTask);
-        // newTask.appendChild(boxCheck);
-    const completed = document.createElement('input');
-    completed.setAttribute('type', 'checkbox');
-    newTask.append(completed);
-    const removeBtn = document.createElement('button');
-    removeBtn.innerText = 'Remove';
-    newTask.append(removeBtn);
-    newTask.className = "todo";
-    localStorage.setItem('todos', toDoList.innerHTML)
-
-      
-    // localStorage.setItem('to-do', JSON.stringify(newTask.innerText));
-    // const boxCheck = document.createElement('input[type="checkbox"]');
-    // newTask.prependToChild(boxCheck);
+    createNewTask(e);
 });
 
 
@@ -46,14 +29,8 @@ toDoList.addEventListener('click', function(e) {
     if (e.target.tagName === 'LI') {
         console.log(e);
      }
-    if (e.target.tagName === 'BUTTON') {
-        console.log(e);
-        e.target.parentElement.remove();        
-    }
-    if (e.target.tagName === 'INPUT') {
-        const state = e.target.checked ? "line-through" : 'none';
-        e.target.parentElement.style.textDecoration = state;
-    }
+    deleteTask(e);
+    lineThruTask(e);
         // if (e.target.checked) {
         //     e.target.parentElement.style.textDecoration = 'line-through';
         // }
@@ -70,6 +47,34 @@ toDoList.addEventListener('click', function(e) {
 // for (check of isChecked) {
 //     check.querySelector('input').checked
 // }
+const createNewTask = function() {
+    let newTask = document.createElement('li');
+    newTask.innerText = addTask.value;
+    addTask.value = '';
+    toDoList.appendChild(newTask);
+    const completed = document.createElement('input');
+    completed.setAttribute('type', 'checkbox');
+    newTask.append(completed);
+    const removeBtn = document.createElement('button');
+    removeBtn.innerText = 'Remove';
+    newTask.append(removeBtn);
+    newTask.className = "todo";
+    localStorage.setItem('todos', toDoList.innerHTML)
+
+}
+const deleteTask = function(e) {
+    if (e.target.tagName === 'BUTTON') {
+        console.log(e);
+        e.target.parentElement.remove();
+        }
+    };
+
+const lineThruTask = function(e) {  
+    if (e.target.tagName === 'INPUT') {
+        const state = e.target.checked ? "line-through" : 'none';
+        e.target.parentElement.style.textDecoration = state;
+    }
+};
 
 
 
